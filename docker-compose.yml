@@ -1,0 +1,58 @@
+version: "3.9"
+
+services:
+  gateway:
+    build: ./gateway
+    container_name: gateway
+    volumes:
+      - ./certs:/certs:ro
+    networks:
+      frontend:
+        ipv4_address: 172.20.0.10
+      backend:
+        ipv4_address: 172.21.0.10
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend-a
+      - backend-b
+
+  backend-a:
+    build: ./backend-a
+    container_name: backend-a
+    networks:
+      backend:
+        ipv4_address: 172.21.0.11
+
+  backend-b:
+    build: ./backend-b
+    container_name: backend-b
+    networks:
+      backend:
+        ipv4_address: 172.21.0.12
+
+  client:
+    build: ./client
+    container_name: client
+    tty : true
+    volumes:
+      - ./certs:/certs:ro
+    stdin_open: true
+    dns:
+      - 172.20.0.10
+    networks:
+      frontend:
+        ipv4_address: 172.20.0.20
+
+networks:
+  frontend:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/24
+
+  backend:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.21.0.0/24

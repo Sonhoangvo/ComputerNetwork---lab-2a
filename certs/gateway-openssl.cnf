@@ -1,0 +1,21 @@
+[ req ]
+default_bits       = 2048
+prompt             = no
+default_md         = sha256
+req_extensions     = req_ext
+distinguished_name = dn
+
+[ dn ]
+C  = VN
+ST = HCMC
+L  = HCMC
+O  = GroupX Lab
+OU = Gateway
+CN = app.groupx.lab
+
+[ req_ext ]
+subjectAltName = @alt_names
+
+[ alt_names ]
+DNS.1 = app.groupx.lab
+DNS.2 = api.groupx.lab
