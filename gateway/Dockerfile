@@ -2,7 +2,7 @@ FROM debian:stable-slim
 
 RUN apt-get update && \
     apt-get install -y nginx dnsmasq curl iputils-ping && \
-    rm -rf /var/lib/apt/lists/*
+    rm -rf /var/lib/apt/lists/* 
 
 COPY dnsmasq.conf /etc/dnsmasq.conf
 COPY nginx.conf /etc/nginx/nginx.conf
