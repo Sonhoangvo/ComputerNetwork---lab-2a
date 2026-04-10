@@ -20,6 +20,8 @@ services:
   backend-a:
     build: ./backend-a
     container_name: backend-a
+    volumes:
+      - ./certs:/certs:ro
     networks:
       backend:
         ipv4_address: 172.21.0.11
@@ -27,6 +29,8 @@ services:
   backend-b:
     build: ./backend-b
     container_name: backend-b
+    volumes:
+      - ./certs:/certs:ro
     networks:
       backend:
         ipv4_address: 172.21.0.12
